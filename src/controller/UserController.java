@@ -23,9 +23,6 @@ public class UserController extends HttpServlet {
     private final static String TAG = "UserController";
     private static final long serialVersionUID = 1L;
     private UserDbUtil userDbUtil;
-    private CarOrderDbUtil carOrderDbUtil;
-    private SpaceOrderDbUtil spaceOrderDbUtil;
-    private CarAvailabilityDbUtil carAvailabilityDbUtil;
 
     @Resource(name = "jdbc/2017J2EE")
     private DataSource dataSource;
@@ -37,9 +34,6 @@ public class UserController extends HttpServlet {
         // create our student db util ... and pass in the conn pool / datasource
         try {
             userDbUtil = new UserDbUtil(dataSource);
-            spaceOrderDbUtil = new SpaceOrderDbUtil(dataSource);
-            carOrderDbUtil = new CarOrderDbUtil(dataSource);
-            carAvailabilityDbUtil = new CarAvailabilityDbUtil(dataSource);
         } catch (Exception exc) {
             throw new ServletException(exc);
         }
@@ -64,9 +58,6 @@ public class UserController extends HttpServlet {
                     break;
                 case "USER_REGISTER":
                     userRegister(request, response);
-                    break;
-                case "CHECK_NAME":
-                    checkName(request, response);
                     break;
                 case "CHECK_CELL":
                     checkCell(request, response);
@@ -103,45 +94,13 @@ public class UserController extends HttpServlet {
     }
 
     private void getUserInfoByName(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userName = request.getParameter("user_name");
-        User nowUser = userDbUtil.getUserByName(userName);
-        request.setAttribute("nowUser", nowUser);
 
-        List<CarOrder> nowCarOrder = carOrderDbUtil.getCarOrderListByAdmin(null, userName,
-                null, null, null, null, null, null);
-
-        request.setAttribute("nowCarOrder", nowCarOrder);
-
-        List<SpaceOrder> nowSpaceOrder = spaceOrderDbUtil.getSpaceOrderListByAdmin(null, userName,
-                null, null, null, null, null);
-        request.setAttribute("nowSpaceOrder", nowSpaceOrder);
-
-        List<CarAvailability> nowCarAva = carAvailabilityDbUtil.getCarAvailabilityListByAdmin(null, userName,
-                null,null,null,null,null,null,null);
-
-        request.setAttribute("nowCarAva", nowCarAva);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void checkCell(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        PrintWriter out = response.getWriter();
-        boolean result = true;
-        if (userDbUtil.getUserByCell(request.getParameter("user_cell")) == null) {
-            result = false;
-        }
-        out.print(result);
+
     }
 
-    private void checkName(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        PrintWriter out = response.getWriter();
-        boolean result = true;
-        if (userDbUtil.getUserByName(request.getParameter("user_name")) == null) {
-            result = false;
-        }
-        out.print(result);
-    }
 
     private void userRegister(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userName = request.getParameter("user_name");

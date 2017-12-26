@@ -69,52 +69,14 @@ public class SpaceController extends HttpServlet {
     }
 
     private void getSpacePriceById(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int spaceId = Integer.valueOf(request.getParameter("space_id"));
-        int spaceType = Integer.valueOf(request.getParameter("space_type"));
-        PrintWriter out = response.getWriter();
-        String price = String.valueOf(spaceDbUtil.getSpacePriceByIdAndType(spaceId, spaceType));
-        out.write(price);
+
     }
 
     private void adminSpace(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String spaceId = request.getParameter("space_id");
-        String spaceType = request.getParameter("space_type");
-        String spaceCity = request.getParameter("space_city");
 
-        List<Space> spaceList = spaceDbUtil.getSpaceListByAdmin(
-                spaceId, spaceCity, spaceType
-        );
-
-        if (null != spaceList) {
-            request.setAttribute("empty", false);
-            request.setAttribute("space_list", spaceList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminSpace.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            request.setAttribute("empty", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminSpace.jsp");
-            dispatcher.forward(request, response);
-        }
     }
 
     private void userSpace(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String spaceLocation = request.getParameter("space_location");
-//        System.out.println(spaceLocation);
-//        System.out.println(new String(request.getParameter("space_location").getBytes("iso-8859-1"),"utf-8"));
-        String spaceType = request.getParameter("space_type");
-//        System.out.println("xxxxxxxxxxxx:" + spaceType);
 
-        List<Space> spaceList = spaceDbUtil.getSpaceListByUser(spaceLocation, spaceType);
-
-        if (spaceList != null) {
-            request.setAttribute("empty", false);
-            request.setAttribute("space_list", spaceList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/rentSpace.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            request.setAttribute("empty", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/rentSpace.jsp");
-            dispatcher.forward(request, response);
-        }
     }
 }
