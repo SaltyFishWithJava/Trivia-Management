@@ -37,7 +37,7 @@
                     </div>
                     <div class="dashboardBoxBg mb30">
                         <div class="profileIntro">
-                            <form action="/UserController" method="POST" class="row" id="userSearchForm">
+                            <form action="/UserController" method="GET" class="row" id="userSearchForm">
                                 <input type="hidden" name="command" value="ADMIN_USER"/>
                                 <div class="form-group col-md-4 col-sm-6 col-xs-12">
                                     <label for="userName">用户名</label>
@@ -47,19 +47,19 @@
                                 <div class="form-group col-md-4 col-sm-6 col-xs-12">
                                     <label for="userStatus">用户状态</label>
                                     <div class="contactSelect">
-                                        <select id="userStatus" class="select-drop" name="user_status" size="1"
+                                        <select id="userStatus" class="select-drop" name="user_valid" size="1"
                                                 multiple="false">
-                                            <option value="2">不限</option>
+                                            <option value="">不限</option>
                                             <option value="1">已激活</option>
                                             <option value="0">已冻结</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-6 col-xs-12" style="padding-top: 2.3%;">
-                                    <button type="button" class="btn btn-primary btn-lg" onclick="user_submit()"><i
+                                    <button type="submit" class="btn btn-primary btn-lg"><i
                                             class="fa fa-search" aria-hidden="true"></i>搜索
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-lg" onclick="re_set()"><i
+                                    <button type="reset" class="btn btn-primary btn-lg"><i
                                             class="fa fa-circle-o" aria-hidden="true"></i>清空
                                     </button>
                                 </div>
@@ -97,38 +97,39 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <%
-                                for (User mUser : result) { %>
-                            <td name="resultUserName"><%=mUser.getUserName()%></td>
-                            <td name="resultUserPsw"><%=mUser.getUserPsw()%></td>
-                            <td name="resultScore"><%=mUser.getScore()%></td>
-                            <td name="resultUserStatus">
+                                    <%
+                                        for (User mUser : result) { %>
+                                    <tr id="result<%=mUser.getUserName()%>">
+                                    <td name="resultUserName"><%=mUser.getUserName()%></td>
+                                    <td name="resultUserPsw"><%=mUser.getUserPsw()%></td>
+                                    <td name="resultScore"><%=mUser.getScore()%></td>
+                                    <td name="resultUserStatus">
+                                        <%
+                                            if (mUser.isValid()) {
+                                                out.print("<span class=\"label label-success\">已激活</span>");
+                                            }
+                                            else {
+                                                out.print("<span class=\"label label-danger\">已冻结</span >");
+                                            }
+                                        %>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary" name="editUser"
+                                                    value="<%=mUser.getUserName()%>">修改
+                                            </button>
+                                            <button type="button" class="btn btn-primary" name="activateUser"
+                                                    value="<%=mUser.getUserName()%>">激活
+                                            </button>
+                                            <button type="button" class="btn btn-primary" name="suspendUser"
+                                                    value="<%=mUser.getUserName()%>">冻结
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                                 <%
-                                    if (mUser.isValid()) {
-                                        out.print("<span class=\"label label-success\">已激活</span>");
-                                    }
-                                    else {
-                                        out.print("<span class=\"label label-danger\">已冻结</span >");
                                     }
                                 %>
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary" name="editUser"
-                                            value="<%=mUser.getUserName()%>">修改
-                                    </button>
-                                    <button type="button" class="btn btn-primary" name="activateUser"
-                                            value="<%=mUser.getUserName()%>">激活
-                                    </button>
-                                    <button type="button" class="btn btn-primary" name="suspendUser"
-                                            value="<%=mUser.getUserName()%>">冻结
-                                    </button>
-                                </div>
-                            </td>
-                            </tr>
-                            <%
-                                }
-                            %>
 
                             </tbody>
                         </table>
@@ -173,14 +174,11 @@
 
 </body>
 <script>
-
-    var userId = $("#result" + this.value).find("td[name='resultUserId']").text();
-
     $("#modalReset").click(
         function () {
-            var userPsw = $("#result" + $("#modalUserId").val()).find("td[name='resultUserPsw']").text();
-            var userCell = $("#result" + $("#modalUserId").val()).find("td[name='resultUserCell']").text();
-            $("#modalUserCell").val(userCell);
+            var userName = $("#result" + $("#modalUserName").val()).find("td[name='resultUserName']").text();
+            var userPsw = $("#result" + $("#modalUserName").val()).find("td[name='resultUserPsw']").text();
+            $("#modalUserName").val(userName);
             $("#modalUserPsw").val(userPsw);
         }
     );
@@ -197,37 +195,40 @@
             $("#result" + this.value).find("td[name='resultUserPsw']").text($("#modalUserPsw").val());
         }
     );
+
+    $("#modalConfirm").click(
+        function () {
+            $.get("/UserController?command=ADMIN_USER_UPDATE", {
+                user_name: $("#modalUserName").val(),
+                user_psw: $("#modalUserPsw").val()
+            }, function (data, textStatus) {
+                $("#result" + $("#modalUserName").val()).find("td[name='resultUserPsw']").text($("#modalUserPsw").val());
+                $("#userModal").modal('hide');
+            })
+        }
+    )
+
     $("button[name='activateUser']").click(
         function () {
-            var userId = this.value;
+            var userName = this.value;
             $.get("/UserController?command=ACTIVATE_USER", {
-                user_id: userId
+                user_name: userName
             }, function (data, textStatus) {
-                if (data == "true") {
-                    var status = $("#result" + userId).find("td[name='resultUserStatus']").find("span");
-                    status.attr("class", "label label-success");
-                    status.html("已激活");
-                }
-                else {
-                    alert("用户状态更改失败");
-                }
+                var status = $("#result" + userName).find("td[name='resultUserStatus']").find("span");
+                status.attr("class", "label label-success");
+                status.html("已激活");
             })
         }
     );
     $("button[name='suspendUser']").click(
         function () {
-            var userId = this.value;
+            var userName = this.value;
             $.get("/UserController?command=SUSPEND_USER", {
-                user_id: userId
+                user_name: userName
             }, function (data, textStatus) {
-                if (data == "true") {
-                    var status = $("#result" + userId).find("td[name='resultUserStatus']").find("span");
-                    status.attr("class", "label label-danger");
-                    status.html("已冻结");
-                }
-                else {
-                    alert("用户状态更改失败");
-                }
+                var status = $("#result" + userName).find("td[name='resultUserStatus']").find("span");
+                status.attr("class", "label label-danger");
+                status.html("已冻结");
             });
         }
     );

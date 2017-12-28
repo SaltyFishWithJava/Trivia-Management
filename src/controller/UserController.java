@@ -61,7 +61,7 @@ public class UserController extends HttpServlet {
                     suspendUser(request, response);
                     break;
                 case "ADMIN_USER_UPDATE":
-                    updateUserById(request, response);
+                    updateUser(request, response);
                     break;
                 default:
                     break;
@@ -79,27 +79,25 @@ public class UserController extends HttpServlet {
         doGet(request, response);
     }
 
-    private void updateUserById(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text");
         PrintWriter out = response.getWriter();
-        out.print(userDbUtil.updateUserById(request.getParameter("user_id"), request.getParameter("user_psw"), request.getParameter("user_cell")));
+        out.print(userDbUtil.updateUserByName(request.getParameter("user_name"), request.getParameter("user_psw")));
     }
 
     private void suspendUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        userDbUtil.suspendUserById(request.getParameter("user_id"));
+        userDbUtil.suspendUserByName(request.getParameter("user_name"));
         response.setCharacterEncoding("utf-8");
         response.setContentType("text");
         PrintWriter out = response.getWriter();
-        out.print(true);
     }
 
     private void activateUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        userDbUtil.activateUserById(request.getParameter("user_id"));
+        userDbUtil.activateUserByName(request.getParameter("user_name"));
         response.setCharacterEncoding("utf-8");
         response.setContentType("text");
         PrintWriter out = response.getWriter();
-        out.print(true);
     }
 
 

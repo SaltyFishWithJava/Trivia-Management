@@ -19,7 +19,7 @@ public class UserDbUtil extends DbUtil {
         super(dataSource);
     }
 
-    public boolean updateUserById(String userId, String userPsw, String userCell) throws Exception {
+    public boolean updateUserByName(String userName, String userPsw) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
@@ -27,7 +27,7 @@ public class UserDbUtil extends DbUtil {
             // get a connection
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = new StringBuilder().append("UPDATE 2017j2ee.user SET user_psw =\"").append(userPsw).append("\", user_cell=\"").append(userCell).append("\" WHERE user_id=").append(userId).toString();
+            String sql = new StringBuilder().append("UPDATE Trivia.User SET password =\"").append(userPsw).append("\" WHERE userName=\"").append(userName + "\"").toString();
             System.out.println(sql);
             myStmt.executeUpdate(sql);
             return true;
@@ -38,7 +38,7 @@ public class UserDbUtil extends DbUtil {
         }
     }
 
-    public void suspendUserById(String userId) throws Exception {
+    public void suspendUserByName(String userName) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
@@ -48,7 +48,8 @@ public class UserDbUtil extends DbUtil {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
             // create sql statement
-            String sql = "UPDATE 2017j2ee.user SET user_valid = 0 WHERE user_id =".concat(userId);
+            String sql = "UPDATE Trivia.User SET valid = 0 WHERE userName =\"".concat(userName + "\"");
+            System.out.println(sql);
             myStmt.executeUpdate(sql);
 
         } finally {
@@ -57,7 +58,7 @@ public class UserDbUtil extends DbUtil {
         }
     }
 
-    public void activateUserById(String user_id) throws Exception {
+    public void activateUserByName(String userName) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
@@ -67,7 +68,8 @@ public class UserDbUtil extends DbUtil {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
             // create sql statement
-            String sql = "UPDATE 2017j2ee.user SET user_valid = 1 WHERE user_id =".concat(user_id);
+            String sql = "UPDATE Trivia.User SET valid = 1 WHERE userName =\"".concat(userName + "\"");
+            System.out.println(sql);
             myStmt.executeUpdate(sql);
 
         } finally {
@@ -92,7 +94,7 @@ public class UserDbUtil extends DbUtil {
                 sql = sql + "userName IS NOT NULL";
             }
             sql += " AND ";
-            if(userStatus != null && userStatus.equals("")){
+            if(userStatus != null && !userStatus.equals("")){
                 sql = sql + "valid = " + userStatus;
             }
             else{
