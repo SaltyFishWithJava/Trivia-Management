@@ -24,7 +24,7 @@ public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDbUtil userDbUtil;
 
-    @Resource(name = "jdbc/2017J2EE")
+    @Resource(name = "jdbc/trivia")
     private DataSource dataSource;
 
     @Override

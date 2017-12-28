@@ -7,12 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
-<%
-    if(currentUser == null || !currentUser.isUserAdmin()){
-        session.setAttribute("is_authorized", false);
-        response.sendRedirect("login.jsp");
-    }
-%>
 
 <div class="navbar-dashboard-area">
     <nav class="navbar navbar-default lightHeader navbar-dashboard" role="navigation">
@@ -36,23 +30,15 @@
                     <%--</li>--%>
                     <li class="" id="adp2">
                         <a href="/CarOrderController?command=ADMIN_CAR_ORDER"><i class="fa fa-list-ul" aria-hidden="true"></i></i></i>
-                            租车订单管理</a>
+                            题目管理</a>
                     </li>
                     <li class="" id="adp3">
                         <a href="/SpaceOrderController?command=ADMIN_SPACE_ORDER"><i class="fa fa-product-hunt" aria-hidden="true"></i>
-                            车位订单管理</a>
+                            游戏记录</a>
                     </li>
                     <li class="" id="adp4">
                         <a href="/UserController?command=ADMIN_USER"><i class="fa fa-user" aria-hidden="true"></i>
                             用户管理</a>
-                    </li>
-                    <li class="" id="adp5">
-                        <a href="/CarAvailabilityController?command=ADMIN_CAR_AVAILABILITY"><i class="fa fa-car" aria-hidden="true"></i>
-                            车辆信息管理</a>
-                    </li>
-                    <li class="" id="adp6">
-                        <a href="/SpaceController?command=ADMIN_SPACE"><i class="fa fa-building icon-dash" aria-hidden="true"></i></i>
-                            车库管理</a>
                     </li>
                 </ul>
             </div>

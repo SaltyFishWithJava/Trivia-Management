@@ -200,7 +200,6 @@
     </section>
 </div>
 
-<%@include file="/templates/loginModal.jsp" %>
 <%@include file="/templates/footers.jsp" %>
 
 
