@@ -117,12 +117,12 @@
         i18n: {
             focus     : 'Focus',
             display   : '选择显示列',
-            displayAll: 'Display all'
+            displayAll: ''
         }
     };
 
     // Wrap table
-    ResponsiveTable.prototype.wrapTable = function() {
+    ResponsiveTable.prototype.wrapTable = function() {        
         this.$tableScrollWrapper.wrap('<div class="table-wrapper"/>');
         this.$tableWrapper = this.$tableScrollWrapper.parent();
     };

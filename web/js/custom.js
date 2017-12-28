@@ -40,27 +40,6 @@ jQuery(document).ready(function () {
             });
     }
 
-//============================== SMOOTH SCROLLING TO SECTION =========================
-
-    $('.scrolling  a[href*="#"]').on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var target = $(this).attr('href');
-        $(target).velocity('scroll', {
-            duration: 800,
-            offset: -150,
-            easing: 'easeOutExpo',
-            mobileHA: false
-        });
-    });
-
-// scroll to a div with the ID "scrollToThis" by clicking a link with the class "scrollLink"
-    $('.scrolling').click(function () {
-        $('html, body').animate({
-            scrollTop: $('#categories').offset().top - 50,
-            scrollTop: $('#message').offset().top - 50
-        }, 600);
-    });
 
 //============================== BOOTSTRA THUMBNAIL SLIDER =========================
     (function () {
@@ -111,92 +90,11 @@ jQuery(document).ready(function () {
 
         });
     }());
-
-//============================== COUNTER-UP =========================
-    $('.counter').counterUp({
-        delay: 10,
-        time: 2000
-    });
-
 //============================== DATE-PICKER =========================
 
     $('.datepicker').datepicker({
         startDate: 'dateToday',
         autoclose: true
-    });
-
-//============================== FILE UPLOADER =========================
-    $(document).on('click', '.browse', function () {
-        var file = $(this).parent().parent().parent().find('.file');
-        file.trigger('click');
-    });
-//============================== DATA TABLE =========================
-
-
-//============================== MAIN SLIDER ========================= 
-
-    var $heroSlider = $('.main-slider .inner');
-    if ($heroSlider.length > 0) {
-        $heroSlider.each(function () {
-
-            var loop = $(this).parent().data('loop'),
-                autoplay = $(this).parent().data('autoplay'),
-                interval = $(this).parent().data('interval') || 3000;
-
-            $(this).owlCarousel({
-                items: 1,
-                loop: loop,
-                margin: 0,
-                nav: true,
-                dots: true,
-                navText: [],
-                autoplay: autoplay,
-                autoplayTimeout: interval,
-                autoplayHoverPause: true,
-                smartSpeed: 700,
-                rtl: false
-            });
-        });
-    }
-
-//============================== OWL-CAROUSEL =========================
-
-    var owl = $('.owl-carousel.partnersLogoSlider');
-    owl.owlCarousel({
-        loop: true,
-        margin: 28,
-        autoplay: true,
-        autoplayTimeout: 6000,
-        autoplayHoverPause: true,
-        nav: true,
-        dots: false,
-        smartSpeed: 500,
-        rtl: false,
-        responsive: {
-            320: {
-                slideBy: 1,
-                items: 1
-            },
-            768: {
-                slideBy: 1,
-                items: 3
-            },
-            992: {
-                slideBy: 1,
-                items: 4
-            }
-        }
-    });
-
-
-//============================== FANCY BOX =========================
-
-    $('a.group').fancybox({
-        'transitionIn': 'elastic',
-        'transitionOut': 'elastic',
-        'speedIn': 600,
-        'speedOut': 200,
-        'overlayShow': false
     });
 
 

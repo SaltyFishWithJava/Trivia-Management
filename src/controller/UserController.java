@@ -24,14 +24,12 @@ public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDbUtil userDbUtil;
 
-    @Resource(name = "jdbc/trivia")
+    @Resource(name = "jdbc/Trivia")
     private DataSource dataSource;
 
     @Override
     public void init() throws ServletException {
         super.init();
-
-        // create our student db util ... and pass in the conn pool / datasource
         try {
             userDbUtil = new UserDbUtil(dataSource);
         } catch (Exception exc) {
@@ -53,15 +51,6 @@ public class UserController extends HttpServlet {
 
             // route to the appropriate method
             switch (theCommand) {
-                case "LOGIN":
-                    login(request, response);
-                    break;
-                case "USER_REGISTER":
-                    userRegister(request, response);
-                    break;
-                case "CHECK_CELL":
-                    checkCell(request, response);
-                    break;
                 case "ADMIN_USER":
                     adminUser(request, response);
                     break;
@@ -73,9 +62,6 @@ public class UserController extends HttpServlet {
                     break;
                 case "ADMIN_USER_UPDATE":
                     updateUserById(request, response);
-                    break;
-                case "USER_PAGE":
-                    getUserInfoByName(request, response);
                     break;
                 default:
                     break;
@@ -91,25 +77,6 @@ public class UserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         doGet(request, response);
-    }
-
-    private void getUserInfoByName(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-    }
-
-    private void checkCell(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-    }
-
-
-    private void userRegister(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userName = request.getParameter("user_name");
-        String userCell = request.getParameter("user_cell");
-        String userPsw = request.getParameter("user_psw");
-        String userEmail = request.getParameter("user_email");
-        userDbUtil.registerUser(userName, userPsw, userEmail, userCell);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/IndexController");
-        dispatcher.forward(request, response);
     }
 
     private void updateUserById(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -135,76 +102,17 @@ public class UserController extends HttpServlet {
         out.print(true);
     }
 
-    private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        User user = new User();
-        User user_db = userDbUtil.getUserByName(request.getParameter("user_name"));
-        System.out.println(request.getParameter("user_name"));
-        if (user_db == null
-                || user_db.getUserValid() != 1
-                || !user_db.getUserPsw().equals(request.getParameter("user_psw"))) {
-            request.setAttribute("logged_in", false);
-            //Forward to login.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            userDbUtil.updateUserLastSeen(user_db.getUserId());
-            request.setAttribute("logged_in", true);
-            request.setAttribute("current_user", user_db);
-            //Forword to index.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/IndexController");
-            dispatcher.forward(request, response);
-        }
-
-    }
 
     private void adminUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userId = request.getParameter("user_id");
-        String userStatus = request.getParameter("user_status"); //  {all,activated,pending,suspended}
         String userName = request.getParameter("user_name");
-        String userCell = request.getParameter("user_cell");
-        String dateLastLogined = request.getParameter("date_last_logined");
-        String dateRegister = request.getParameter("date_register");
-        String dateDealed = request.getParameter("date_dealed");
+        String userValid = request.getParameter("user_valid");
 
-        UserSearch mUserSearch = new UserSearch();
-        if (null != userId && userId.length() != 0) {
-            mUserSearch.setSearchId(Integer.parseInt(userId));
-        }
-        if (null != userStatus) {
-            mUserSearch.setSearchStatus(Integer.parseInt(userStatus));
+        List<User> userList = userDbUtil.getUserListbyAdmin(userName, userValid);
 
-        }
-        if (null != userName && userName.length() != 0) {
-            mUserSearch.setSearchName(userName);
-        }
-        if (null != dateLastLogined && dateLastLogined.length() != 0) {
-            mUserSearch.setDateLastLogined(dateLastLogined);
-        }
-        if (null != dateRegister && dateRegister.length() != 0) {
-            mUserSearch.setSearchStartDate(dateRegister);
-        }
-        if (null != dateDealed && dateDealed.length() != 0) {
-            mUserSearch.setSearchOrderDate(dateDealed);
-        }
-        if (null != userCell && userCell.length() != 0) {
-            mUserSearch.setSearchCell(Long.parseLong(userCell));
-        }
-
-        List<User> userList = userDbUtil.getUserListbyAdmin(userId, userStatus, userName, userCell, dateLastLogined, dateRegister, dateDealed);
-
-        if (userList != null) {
-            request.setAttribute("empty", false);
-            request.setAttribute("user_list", userList);
-            request.setAttribute("search_input", mUserSearch);
-            //Forward to adminUser.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUser.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            request.setAttribute("empty", true);
-            //Forword to adminUser.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUser.jsp");
-            dispatcher.forward(request, response);
-        }
+        request.setAttribute("user_list", userList);
+        //Forward to adminUser.jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUser.jsp");
+        dispatcher.forward(request, response);
 
     }
 

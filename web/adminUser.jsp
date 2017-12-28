@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="dashboardPageTitle text-center">
-                        <h2><b>HC</b>用户管理</h2>
+                        <h2><b>Trivia</b>  用户管理</h2>
                     </div>
                     <div class="dashboardBoxBg mb30">
                         <div class="profileIntro">
@@ -69,15 +69,10 @@
                 </div>
 
 
-                <p style="height: 0px; padding-top: 10px; padding-left: 2%">共搜索到了<span style="font-weight: bold;">
+                <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了<span style="font-weight: bold;">
                     <%
-                        List<User> result = null;
-                        if (!empty) {
-                            result = (List<User>) request.getAttribute("user_list");
-                            out.print(result.size());
-                        } else {
-                            out.print(0);
-                        }
+                        List<User> result = (List<User>) request.getAttribute("user_list");
+                        out.print(result.size());
                     %></span> 条记录</p>
                 <div class="col-xs-12">
                     <div class="table-responsive bgAdd" data-pattern="priority-columns">
@@ -85,10 +80,10 @@
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th data-priority="">用户名</th>
-                                <th data-priority="">用户密码</th>
-                                <th data-priority="">用户分数</th>
-                                <th data-priority="">用户状态</th>
+                                <th data-priority="12">用户名</th>
+                                <th data-priority="12">用户密码</th>
+                                <th data-priority="4">用户分数</th>
+                                <th data-priority="4">用户状态</th>
                                 <th data-priority="2">操作</th>
                             </tr>
                             </thead>
@@ -104,10 +99,8 @@
                             <tbody>
                             <%
                                 for (User mUser : result) { %>
-                            <td name="resultUserName"><%=mUser.getUserName()%>
-                            </td>
-                            <td name="resultUserPsw"><%=mUser.getUserPsw()%>
-                            </td>
+                            <td name="resultUserName"><%=mUser.getUserName()%></td>
+                            <td name="resultUserPsw"><%=mUser.getUserPsw()%></td>
                             <td name="resultScore"><%=mUser.getScore()%></td>
                             <td name="resultUserStatus">
                                 <%
@@ -150,7 +143,7 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="userModal" style="padding-top: 10%">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="height: 265px;width: 675px;">
+        <div class="modal-content" style="height: 230px;width: 675px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
@@ -191,6 +184,7 @@
             $("#modalUserPsw").val(userPsw);
         }
     );
+
     $("button[name='editUser']").click(
         function () {
             $("#userModal").modal('show');

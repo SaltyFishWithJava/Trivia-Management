@@ -60,7 +60,4 @@
 <script src="plugins/datepicker/bootstrap-datepicker.min.js"></script>
 <script src="plugins/rwdtable/js/rwd-table.js"></script>
 <script src="plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
-<script src="plugins/owl-carousel/owl.carousel.min.js"></script>
-<script src="plugins/isotope/isotope.min.js"></script>
-<script src="plugins/isotope/isotope-triger.min.js"></script>
 <script src="js/custom.js"></script>

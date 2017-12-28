@@ -9,7 +9,7 @@
     </session-config>
     
     <welcome-file-list>
-        <welcome-file>adminUser.jsp</welcome-file>
+        <welcome-file>/UserController?command="ADMIN_USER"</welcome-file>
     </welcome-file-list>
 
 </web-app>
