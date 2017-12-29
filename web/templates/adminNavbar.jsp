@@ -29,11 +29,11 @@
                             <%--管理主页</a>--%>
                     <%--</li>--%>
                     <li class="" id="adp2">
-                        <a href="/CarOrderController?command=ADMIN_CAR_ORDER"><i class="fa fa-list-ul" aria-hidden="true"></i></i></i>
+                        <a href="/GameController?command=ADMIN_CAR_ORDER"><i class="fa fa-list-ul" aria-hidden="true"></i></i></i>
                             题目管理</a>
                     </li>
                     <li class="" id="adp3">
-                        <a href="/SpaceOrderController?command=ADMIN_SPACE_ORDER"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+                        <a href="/GameController?command=ADMIN_GAME"><i class="fa fa-gamepad" aria-hidden="true"></i>
                             游戏记录</a>
                     </li>
                     <li class="" id="adp4">

@@ -1,7 +1,7 @@
 package controller;
 
 import bean.*;
-import model.UserDbUtil;
+import model.*;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -54,10 +54,10 @@ public class UserController extends HttpServlet {
                 case "ADMIN_USER":
                     adminUser(request, response);
                     break;
-                case "ACTIVATE_USER":
+                case "MODIFY_USER":
                     activateUser(request, response);
                     break;
-                case "SUSPEND_USER":
+                case "DELETE_USER":
                     suspendUser(request, response);
                     break;
                 case "ADMIN_USER_UPDATE":
