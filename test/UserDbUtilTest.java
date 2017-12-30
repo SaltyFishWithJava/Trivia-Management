@@ -14,6 +14,9 @@ import static org.junit.Assert.*;
 
 /**
  * UserDbUtil Tester.
+ *
+ * @author CHEN YIJUN
+ * @version 1.0
  */
 public class UserDbUtilTest {
     private UserDbUtil userDbUtil;
