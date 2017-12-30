@@ -4,12 +4,9 @@ import bean.User;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserDbUtil extends DbUtil {
@@ -17,6 +14,31 @@ public class UserDbUtil extends DbUtil {
     //Constructor
     public UserDbUtil(DataSource dataSource) {
         super(dataSource);
+    }
+
+    public User getUserByName(String userName) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            // get a connection
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "SELECT * FROM Trivia.User WHERE userName = \"" + userName + "\"";
+            System.out.println(sql);
+            myRs = myStmt.executeQuery(sql);
+            User ret = null;
+            if(myRs.first()){
+                return new User().setScore(myRs.getInt("score"))
+                        .setFriendNumber(myRs.getInt("friendNumber"))
+                        .setUserName(myRs.getString("userName"))
+                        .setUserPsw(myRs.getString("password"))
+                        .setValid(myRs.getBoolean("valid"));
+            };
+            return ret;
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
     }
 
     public boolean updateUserByName(String userName, String userPsw) throws Exception {
@@ -88,16 +110,15 @@ public class UserDbUtil extends DbUtil {
 
             String sql = "select * from Trivia.User WHERE ";
 
-            if(userName != null && !userName.equals("")){
+            if (userName != null && !userName.equals("")) {
                 sql = sql + "userName = \"" + userName + "\"";
-            }else{
+            } else {
                 sql = sql + "userName IS NOT NULL";
             }
             sql += " AND ";
-            if(userStatus != null && !userStatus.equals("")){
+            if (userStatus != null && !userStatus.equals("")) {
                 sql = sql + "valid = " + userStatus;
-            }
-            else{
+            } else {
                 sql = sql + "valid IS NOT NULL ";
             }
 
