@@ -20,7 +20,7 @@
 <div class="main-wrapper">
 
     <script>
-        var PAGEID = "adp3";
+        var PAGEID = "adp2";
     </script>
     <header id="pageTop" class="header">
         <%@include file="templates/adminNavbar.jsp" %>

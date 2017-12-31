@@ -1,12 +1,8 @@
 package model;
 
-import bean.User;
+import bean.Ques;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuesDbUtil extends DbUtil {
@@ -16,4 +12,20 @@ public class QuesDbUtil extends DbUtil {
         super(dataSource);
     }
 
+    public List<Ques> getQuesListByAdmin(String quesText, int quesCate, boolean searchCate, int quesId
+            , boolean searchId) throws Exception {
+
+    }
+
+    public int addQues(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+
+    }
+
+    public void updateQuesById(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD) throws Exception {
+
+    }
+
+    public void deleteQuesById(int quesId) throws Exception{
+
+    }
 }
