@@ -166,13 +166,15 @@
 
     $("button[name='deleteQues']").click(
         function () {
-            var quesId = this.ques_id;
-            var quesCate = this.ques_cate;
+            var quesId = $(this).attr("ques_id");
+            var quesCate = $(this).attr("ques_cate");
+            console.log(quesId);
+            console.log(quesCate);
             $.get("/QuesController?command=DELETE_QUES", {
                 ques_id : quesId,
                 ques_cate: quesCate
             }, function (data, textStatus) {
-                this.parent().parent().parent().remove();
+                $("#result" + quesId).remove();
             });
         }
     );

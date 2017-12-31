@@ -82,7 +82,8 @@ public class QuesController extends HttpServlet {
 
     private void deleteQues(HttpServletRequest request, HttpServletResponse response) throws Exception{
         int quesId = Integer.valueOf(request.getParameter("ques_id"));
-        quesDbUtil.deleteQuesById(quesId);
+        int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
+        quesDbUtil.deleteQuesById(quesId, quesCate);
     }
 
     private void addQues(HttpServletRequest request, HttpServletResponse response) throws Exception {

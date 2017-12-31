@@ -162,14 +162,77 @@ public class QuesDbUtil extends DbUtil {
 
     }
 
-    public void deleteQuesById(int quesId) throws Exception {
+    public void deleteQuesById(int quesId, int cate) throws Exception {
+        switch (cate) {
+            case 1:
+                deleteQues1(quesId);
+                break;
+            case 2:
+                deleteQues2(quesId);
+                break;
+            case 3:
+                deleteQues3(quesId);
+                break;
+            case 4:
+                deleteQues4(quesId);
+                break;
+        }
+    }
+
+    private void deleteQues4(int quesId) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = "DELETE FROM Trivia.questions WHERE ID = " + quesId;
+            String sql = "DELETE FROM questions_4 WHERE ID = " + quesId;
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void deleteQues3(int quesId) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "DELETE FROM questions_3 WHERE ID = " + quesId;
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void deleteQues2(int quesId) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "DELETE FROM questions_2 WHERE ID = " + quesId;
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void deleteQues1(int quesId) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "DELETE FROM questions_1 WHERE ID = " + quesId;
+            System.out.println(sql);
             myStmt.execute(sql);
         } finally {
             close(myConn, myStmt, myRs);
