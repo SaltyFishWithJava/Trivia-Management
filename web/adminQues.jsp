@@ -20,7 +20,7 @@
 <div class="main-wrapper">
 
     <script>
-        var PAGEID = "adp3";
+        var PAGEID = "adp2";
     </script>
     <header id="pageTop" class="header">
         <%@include file="templates/adminNavbar.jsp" %>
@@ -37,22 +37,17 @@
                     </div>
                     <div class="dashboardBoxBg mb30">
                         <div class="profileIntro">
-                            <form action="/UserController" method="GET" class="row" id="userSearchForm">
-                                <input type="hidden" name="command" value="ADMIN_USER"/>
+                            <form action="/QuesController" method="GET" class="row">
+                                <input type="hidden" name="command" value="ADMIN_QUES"/>
                                 <div class="form-group col-md-4 col-sm-6 col-xs-12">
                                     <label for="quesText">题面</label>
                                     <input type="text" class="form-control" id="quesText" placeholder="请输入题面关键字"
-                                           name="user_name">
-                                </div>
-                                <div class="form-group col-md-4 col-sm-6 col-xs-12">
-                                    <label for="quesID">题目ID</label>
-                                    <input type="text" class="form-control" id="quesID" placeholder="请输入题目ID"
-                                           name="user_name">
+                                           name="ques_text">
                                 </div>
                                 <div class="form-group col-md-4 col-sm-6 col-xs-12">
                                     <label for="userStatus">题目种类</label>
                                     <div class="contactSelect">
-                                        <select id="userStatus" class="select-drop" name="user_valid" size="1"
+                                        <select id="userStatus" class="select-drop" name="ques_cate" size="1"
                                                 multiple="false">
                                             <option value="">不限</option>
                                             <option value="4">生活常识类</option>
@@ -66,11 +61,6 @@
                                     <button type="submit" class="btn btn-primary btn-lg"><i
                                             class="fa fa-search" aria-hidden="true"></i>搜索
                                     </button>
-                                    <button type="reset" class="btn btn-primary btn-lg"><i
-                                            class="fa fa-circle-o" aria-hidden="true"></i>清空
-                                    </button>
-                                </div>
-                                <div class="form-group col-md-4 col-sm-6 col-xs-12" style="padding-top: 2.3%;">
                                     <button type="" class="btn btn-primary btn-lg"><i
                                             class="fa fa-search" aria-hidden="true"></i>添加
                                     </button>
@@ -92,24 +82,17 @@
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>题目ID</th>
-                                <th>题面</th>
-                                <th>选项A</th>
-                                <th>选项B</th>
-                                <th>选项C</th>
-                                <th>选项D</th>
+                                <th data-priority="2">题面</th>
+                                <th data-priority="2">正确答案</th>
+                                <th data-priority="1">类型</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>题目ID</th>
                                 <th>题面</th>
-                                <th>选项A</th>
-                                <th>选项B</th>
-                                <th>选项C</th>
-                                <th>选项D</th>
                                 <th>正确答案</th>
+                                <th>类型</th>
                                 <th>操作</th>
                             </tr>
                             </tfoot>
@@ -117,25 +100,49 @@
                             <%
                                 for (Ques it : result) { %>
                             <tr id="result<%=it.getQuesId()%>">
-                                <td><%=it.getQuesText()%>
+                                <td><%
+                                    out.print("题目: ");
+                                    if(it.getQuesText().length() > 30){
+                                        out.print(it.getQuesText().substring(0, 29) + "</br>");
+                                        out.print(it.getQuesText().substring(30, it.getQuesText().length()-1));
+                                    }
+                                    else{
+                                        out.print(it.getQuesText());
+                                    }
+                                    out.print("</br>A:");
+                                    out.print(it.getChoiceA());
+                                    out.print("</br>B:");
+                                    out.print(it.getChoiceB());
+                                    out.print("</br>C:");
+                                    out.print(it.getChoiceC());
+                                    out.print("</br>D:");
+                                    out.print(it.getChoiceD());
+                                %>
                                 </td>
-                                <td><%=it.getChoiceA()%>
-                                </td>
-                                <td><%=it.getChoiceB()%>
-                                </td>
-                                <td><%=it.getChoiceC()%>
-                                </td>
-                                <td><%=it.getChoiceD()%>
-                                </td>
-                                <td><%=it.getAns()%>
-                                </td>
+                                <td><%=it.getAns()%></td>
+                                <td><%
+                                        switch (it.getQuesCate()){
+                                            case 1:
+                                                out.print("娱乐知识类");
+                                                break;
+                                            case 2:
+                                                out.print("人文知识类");
+                                                break;
+                                            case 3:
+                                                out.print("历史知识类");
+                                                break;
+                                            case 4:
+                                                out.print("生活常识类");
+                                                break;
+                                        }
+                                    %></td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary" name="editUser"
-                                                value="<%=it.getQuesId()%>">修改
+                                                ques_id="<%=it.getQuesId()%>" ques_cate="<%=it.getQuesCate()%>">修改
                                         </button>
                                         <button type="button" class="btn btn-primary" name="deleteQues"
-                                                value="<%=it.getQuesId()%>">删除
+                                                ques_id="<%=it.getQuesId()%>" ques_cate="<%=it.getQuesCate()%>">删除
                                         </button>
                                     </div>
                                 </td>
@@ -157,12 +164,13 @@
 </body>
 <script>
 
-
     $("button[name='deleteQues']").click(
         function () {
-            var quesId = this.value;
+            var quesId = this.ques_id;
+            var quesCate = this.ques_cate;
             $.get("/QuesController?command=DELETE_QUES", {
-                ques_id : quesId
+                ques_id : quesId,
+                ques_cate: quesCate
             }, function (data, textStatus) {
                 this.parent().parent().parent().remove();
             });

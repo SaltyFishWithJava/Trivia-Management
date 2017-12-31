@@ -59,7 +59,7 @@ public class QuesController extends HttpServlet {
                     addQues(request, response);
                     break;
                 case "UPDATE_QUES":
-                    udpateQues(request, response);
+                    //udpateQues(request, response);
                     break;
                 case "DELETE_QUES":
                     deleteQues(request, response);
@@ -98,25 +98,15 @@ public class QuesController extends HttpServlet {
     private void getQuesList(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String quesText = request.getParameter("ques_text");
         boolean searchQuesCate;
-        boolean searchQuesId;
         int quesCate = 0;
-        int quesId = 0;
         String quesCateS = request.getParameter("ques_cate");
-        String quesIdS = request.getParameter("ques_id");
-        if (quesCateS != null) {
+        if (quesCateS != null && !quesCateS.equals("")) {
             quesCate = Integer.valueOf(quesCateS);
             searchQuesCate = true;
         } else {
             searchQuesCate = false;
         }
-
-        if (quesIdS != null) {
-            quesId = Integer.valueOf(quesIdS);
-            searchQuesId = true;
-        } else {
-            searchQuesId = false;
-        }
-        List<Ques> quesList = quesDbUtil.getQuesListByAdmin(quesText, quesCate, searchQuesCate, quesId, searchQuesId);
+        List<Ques> quesList = quesDbUtil.getQuesListByAdmin(quesText, quesCate, searchQuesCate);
         request.setAttribute("ques_list", quesList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("adminQues.jsp");
         dispatcher.forward(request, response);

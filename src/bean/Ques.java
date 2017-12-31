@@ -7,7 +7,17 @@ public class Ques {
     private String choiceB;
     private String choiceC;
     private String choiceD;
-    private char ans;
+    private int quesCate;
+    private String ans;
+
+    public int getQuesCate() {
+        return quesCate;
+    }
+
+    public Ques setQuesCate(int quesCate) {
+        this.quesCate = quesCate;
+        return this;
+    }
 
     public int getQuesId() {
         return quesId;
@@ -63,11 +73,11 @@ public class Ques {
         return this;
     }
 
-    public char getAns() {
+    public String getAns() {
         return ans;
     }
 
-    public Ques setAns(char ans) {
+    public Ques setAns(String ans) {
         this.ans = ans;
         return this;
     }

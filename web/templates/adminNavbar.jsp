@@ -29,7 +29,7 @@
                             <%--管理主页</a>--%>
                     <%--</li>--%>
                     <li class="" id="adp2">
-                        <a href="/GameController?command=ADMIN_CAR_ORDER"><i class="fa fa-list-ul" aria-hidden="true"></i></i></i>
+                        <a href="/QuesController?command=ADMIN_QUES"><i class="fa fa-list-ul" aria-hidden="true"></i></i></i>
                             题目管理</a>
                     </li>
                     <li class="" id="adp3">
