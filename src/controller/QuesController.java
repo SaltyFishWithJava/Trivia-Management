@@ -98,7 +98,7 @@ public class QuesController extends HttpServlet {
         String ansD = request.getParameter("ans_d");
         String ans = request.getParameter("ans");
         int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
-        quesDbUtil.addQues(quesText,ansA,ansB,ansC,ansD,ans, quesCate);
+        quesDbUtil.addQues(quesText, ansA, ansB, ansC, ansD, ans, quesCate);
     }
 
     private void updateQues(HttpServletRequest request, HttpServletResponse response) throws Exception {

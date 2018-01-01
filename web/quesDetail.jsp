@@ -1,3 +1,4 @@
+<%@ page import="bean.Ques" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html lang="en">
 
@@ -22,44 +23,69 @@
                     <form action="" method="" class="listing__form">
                         <div class="dashboardPageTitle text-center">
                             <h2><b>Trivia</b> 题目</h2>
+                            <%
+                                Ques ques = (Ques) request.getAttribute("ques");
+                                out.print("<input value=" + ques.getQuesId() + " name=\"ques_id\" hidden=\"hidden\">");
+                            %>
+
                         </div>
                         <div class="dashboardBoxBg mb30">
                             <div class="profileIntro paraMargin">
-                                <h3>About</h3>
-                                <p>We are not responsible for any damages caused by the use of this website, or by
-                                    posting business listings here. Please use our site at your own discretion and
-                                    exercise good judgement as well as common sense when advertising business here.</p>
                                 <div class="row">
-                                    <div class="form-group col-sm-6 col-xs-12">
-                                        <label for="listingTitle">Listing Title</label>
-                                        <input type="text" class="form-control" id="listingTitle"
-                                               placeholder="Listing Title">
+                                    <div class="form-group col-xs-12">
+                                        <label for="questionContent">题面：</label>
+                                        <textarea class="form-control" rows="3" id="questionContent"
+                                                  placeholder="请输入题面……"><%
+                                            if (ques != null){
+                                                out.print(ques.getQuesText());
+                                            }
+                                                  %></textarea>
                                     </div>
+                                    <div class="form-group col-sm-3 col-xs-12">
+                                        <label for="questionSelect_A">选项：</label><br>
+                                        A<input class="form-control" name="questionSelect_A" id="questionSelect_A">
+                                    </div>
+                                    <div class="form-group col-sm-3 col-xs-12">
+                                        <label for="questionSelect_B">选项：</label><br>
+                                        B<input class="form-control" name="questionSelect_B" id="questionSelect_B">
+                                    </div>
+                                    <div class="form-group col-sm-3 col-xs-12">
+                                        <label for="questionSelect_C">选项：</label><br>
+                                        C<input class="form-control" name="questionSelect_C" id="questionSelect_C">
+                                    </div>
+                                    <div class="form-group col-sm-3 col-xs-12">
+                                        <label for="questionSelect_D">选项：</label><br>
+                                        D<input class="form-control" name="questionSelect_D" id="questionSelect_D">
+                                    </div>
+
                                     <div class="form-group col-sm-6 col-xs-12">
-                                        <label for="listingCategory">Category</label>
+                                        <label for="questionAnswer">正确答案：</label>
                                         <div class="contactSelect">
-                                            <select name="guiest_id9" id="guiest_id9" class="select-drop">
-                                                <option value="0">All Category</option>
-                                                <option value="1">Restaurant</option>
-                                                <option value="2">Bar</option>
-                                                <option value="3">Cafe</option>
+                                            <select name="question_answer" id="questionAnswer" class="select-drop">
+                                                <option value="1">A</option>
+                                                <option value="2">B</option>
+                                                <option value="3">C</option>
+                                                <option value="4">D</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group col-xs-12">
-                                        <label for="discribeTheListing">Discribe the listing</label>
-                                        <textarea class="form-control" rows="3"
-                                                  placeholder="Discribe the listing"></textarea>
-                                    </div>
-                                    <div class="form-group col-xs-12">
-                                        <label for="addTags">Tags</label>
-                                        <input type="text" class="form-control" id="addTags" placeholder="Add Tags">
+
+                                    <div class="form-group col-sm-6 col-xs-12">
+                                        <label for="qusetionCategory">题目类型：</label>
+                                        <div class="contactSelect">
+                                            <select name="qusetion_category" id="qusetionCategory" class="select-drop">
+                                                <option value="0">第一种</option>
+                                                <option value="1">第二种</option>
+                                                <option value="2">第三种</option>
+                                                <option value="3">第四种</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-footer text-center">
-                            <button type="submit" class="btn-submit">Submit</button>
+                            <button type="submit" class="btn-submit">提交</button>
                         </div>
                     </form>
                 </div>
@@ -71,3 +97,4 @@
 <%@include file="templates/footers.jsp" %>
 
 </html>
+

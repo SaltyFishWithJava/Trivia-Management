@@ -61,9 +61,11 @@
                                     <button type="submit" class="btn btn-primary btn-lg"><i
                                             class="fa fa-search" aria-hidden="true"></i>搜索
                                     </button>
-                                    <button type="" class="btn btn-primary btn-lg"><i
-                                            class="fa fa-search" aria-hidden="true"></i>添加
-                                    </button>
+                                    <a href="quesDetail.jsp">
+                                        <button type="" class="btn btn-primary btn-lg"><i class="fa fa-plus"
+                                                aria-hidden="true"></i></i>添加
+                                        </button>
+                                    </a>
                                 </div>
                             </form>
                         </div>
@@ -102,11 +104,10 @@
                             <tr id="result<%=it.getQuesId()%>">
                                 <td><%
                                     out.print("题目: ");
-                                    if(it.getQuesText().length() > 30){
+                                    if (it.getQuesText().length() > 30) {
                                         out.print(it.getQuesText().substring(0, 29) + "</br>");
-                                        out.print(it.getQuesText().substring(30, it.getQuesText().length()-1));
-                                    }
-                                    else{
+                                        out.print(it.getQuesText().substring(30, it.getQuesText().length() - 1));
+                                    } else {
                                         out.print(it.getQuesText());
                                     }
                                     out.print("</br>A:");
@@ -119,23 +120,24 @@
                                     out.print(it.getChoiceD());
                                 %>
                                 </td>
-                                <td><%=it.getAns()%></td>
+                                <td><%=it.getAns()%>
+                                </td>
                                 <td><%
-                                        switch (it.getQuesCate()){
-                                            case 1:
-                                                out.print("娱乐知识类");
-                                                break;
-                                            case 2:
-                                                out.print("人文知识类");
-                                                break;
-                                            case 3:
-                                                out.print("历史知识类");
-                                                break;
-                                            case 4:
-                                                out.print("生活常识类");
-                                                break;
-                                        }
-                                    %></td>
+                                    switch (it.getQuesCate()) {
+                                        case 1:
+                                            out.print("娱乐知识类");
+                                            break;
+                                        case 2:
+                                            out.print("人文知识类");
+                                            break;
+                                        case 3:
+                                            out.print("历史知识类");
+                                            break;
+                                        case 4:
+                                            out.print("生活常识类");
+                                            break;
+                                    }
+                                %></td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary" name="editUser"
@@ -171,7 +173,7 @@
             console.log(quesId);
             console.log(quesCate);
             $.get("/QuesController?command=DELETE_QUES", {
-                ques_id : quesId,
+                ques_id: quesId,
                 ques_cate: quesCate
             }, function (data, textStatus) {
                 $("#result" + quesId).remove();

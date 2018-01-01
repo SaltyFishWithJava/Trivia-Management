@@ -235,8 +235,85 @@ public class QuesDbUtil extends DbUtil {
         }
     }
 
-    public void updateQuesById(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD) throws Exception {
+    public void updateQuesById(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD, String ans, int quesCate) throws Exception {
+        switch (quesCate) {
+            case 1:
+                updateQues1(quesId, quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+            case 2:
+                updateQues2(quesId, quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+            case 3:
+                updateQues3(quesId, quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+            case 4:
+                updateQues4(quesId, quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+        }
+    }
 
+    private void updateQues4(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("UPDATE Trivia.question_4 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+                    quesText, ansA, ansB, ansC, ansD, ans, quesId);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void updateQues3(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("UPDATE Trivia.question_3 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+                    quesText, ansA, ansB, ansC, ansD, ans, quesId);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void updateQues2(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("UPDATE Trivia.question_2 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+                    quesText, ansA, ansB, ansC, ansD, ans, quesId);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void updateQues1(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("UPDATE Trivia.question_1 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+                    quesText, ansA, ansB, ansC, ansD, ans, quesId);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
     }
 
     public void deleteQuesById(int quesId, int cate) throws Exception {
