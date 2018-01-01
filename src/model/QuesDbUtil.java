@@ -154,8 +154,85 @@ public class QuesDbUtil extends DbUtil {
         return result;
     }
 
-    public int addQues(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
-        return 0;
+    public void addQues(String quesText, String ansA, String ansB, String ansC, String ansD, String ans, int quesCate) throws Exception {
+        switch (quesCate) {
+            case 1:
+                addQues1(quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+            case 2:
+                addQues2(quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+            case 3:
+                addQues3(quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+            case 4:
+                addQues4(quesText, ansA, ansB, ansC, ansD, ans);
+                break;
+        }
+    }
+
+    private void addQues4(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("INSERT INTO Trivia.question_4 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 4",
+                    quesText, ansA, ansB, ansC, ansD, ans);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void addQues3(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("INSERT INTO Trivia.question_3 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 3",
+                    quesText, ansA, ansB, ansC, ansD, ans);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void addQues2(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("INSERT INTO Trivia.question_2 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 2",
+                    quesText, ansA, ansB, ansC, ansD, ans);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private void addQues1(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = String.format("INSERT INTO Trivia.question_1 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 1",
+                    quesText, ansA, ansB, ansC, ansD, ans);
+            System.out.println(sql);
+            myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
     }
 
     public void updateQuesById(int quesId, String quesText, String ansA, String ansB, String ansC, String ansD) throws Exception {
@@ -234,6 +311,125 @@ public class QuesDbUtil extends DbUtil {
             String sql = "DELETE FROM questions_1 WHERE ID = " + quesId;
             System.out.println(sql);
             myStmt.execute(sql);
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    public Ques getQues(int quesId, int quesCate) throws Exception {
+        Ques ret = null;
+        switch (quesCate) {
+            case 1:
+                ret = getQues1(quesId);
+                break;
+            case 2:
+                ret = getQues2(quesId);
+                break;
+            case 3:
+                ret = getQues3(quesId);
+                break;
+            case 4:
+                ret = getQues4(quesId);
+                break;
+        }
+        return ret;
+    }
+
+    private Ques getQues4(int quesId) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "DELETE * questions_4 WHERE ID = " + quesId;
+            System.out.println(sql);
+            myRs = myStmt.executeQuery(sql);
+            myRs.first();
+            Ques it = new Ques().setAns(myRs.getString("answer"))
+                    .setChoiceA(myRs.getString("A"))
+                    .setChoiceB(myRs.getString("B"))
+                    .setChoiceC(myRs.getString("C"))
+                    .setChoiceD(myRs.getString("D"))
+                    .setQuesCate(myRs.getInt("cate"))
+                    .setQuesText(myRs.getString("description"))
+                    .setQuesId(myRs.getInt("ID"));
+            return it;
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private Ques getQues3(int quesId) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "DELETE * questions_3 WHERE ID = " + quesId;
+            System.out.println(sql);
+            myRs = myStmt.executeQuery(sql);
+            myRs.first();
+            Ques it = new Ques().setAns(myRs.getString("answer"))
+                    .setChoiceA(myRs.getString("A"))
+                    .setChoiceB(myRs.getString("B"))
+                    .setChoiceC(myRs.getString("C"))
+                    .setChoiceD(myRs.getString("D"))
+                    .setQuesCate(myRs.getInt("cate"))
+                    .setQuesText(myRs.getString("description"))
+                    .setQuesId(myRs.getInt("ID"));
+            return it;
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private Ques getQues2(int quesId) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "DELETE * questions_2 WHERE ID = " + quesId;
+            System.out.println(sql);
+            myRs = myStmt.executeQuery(sql);
+            myRs.first();
+            Ques it = new Ques().setAns(myRs.getString("answer"))
+                    .setChoiceA(myRs.getString("A"))
+                    .setChoiceB(myRs.getString("B"))
+                    .setChoiceC(myRs.getString("C"))
+                    .setChoiceD(myRs.getString("D"))
+                    .setQuesCate(myRs.getInt("cate"))
+                    .setQuesText(myRs.getString("description"))
+                    .setQuesId(myRs.getInt("ID"));
+            return it;
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+    }
+
+    private Ques getQues1(int quesId) throws Exception {
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        try {
+            myConn = dataSource.getConnection();
+            myStmt = myConn.createStatement();
+            String sql = "DELETE * questions_1 WHERE ID = " + quesId;
+            System.out.println(sql);
+            myRs = myStmt.executeQuery(sql);
+            myRs.first();
+            Ques it = new Ques().setAns(myRs.getString("answer"))
+                    .setChoiceA(myRs.getString("A"))
+                    .setChoiceB(myRs.getString("B"))
+                    .setChoiceC(myRs.getString("C"))
+                    .setChoiceD(myRs.getString("D"))
+                    .setQuesCate(myRs.getInt("cate"))
+                    .setQuesText(myRs.getString("description"))
+                    .setQuesId(myRs.getInt("ID"));
+            return it;
         } finally {
             close(myConn, myStmt, myRs);
         }

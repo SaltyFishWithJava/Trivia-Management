@@ -1,7 +1,6 @@
 package controller;
 
 import bean.Ques;
-import com.sun.deploy.net.HttpResponse;
 import model.QuesDbUtil;
 
 import javax.annotation.Resource;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -58,8 +56,11 @@ public class QuesController extends HttpServlet {
                 case "ADD_QUES":
                     addQues(request, response);
                     break;
+                case "GET_QUES":
+                    getQues(request, response);
+                    break;
                 case "UPDATE_QUES":
-                    //udpateQues(request, response);
+                    updateQues(request, response);
                     break;
                 case "DELETE_QUES":
                     deleteQues(request, response);
@@ -80,10 +81,13 @@ public class QuesController extends HttpServlet {
         doGet(request, response);
     }
 
-    private void deleteQues(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    private void getQues(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int quesId = Integer.valueOf(request.getParameter("ques_id"));
         int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
-        quesDbUtil.deleteQuesById(quesId, quesCate);
+        Ques ret = quesDbUtil.getQues(quesId, quesCate);
+        request.setAttribute("ques", ret);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("quesDetail.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void addQues(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -93,7 +97,26 @@ public class QuesController extends HttpServlet {
         String ansC = request.getParameter("ans_c");
         String ansD = request.getParameter("ans_d");
         String ans = request.getParameter("ans");
+        int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
+        quesDbUtil.addQues(quesText,ansA,ansB,ansC,ansD,ans, quesCate);
+    }
 
+    private void updateQues(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String quesText = request.getParameter("ques_text");
+        String ansA = request.getParameter("ans_a");
+        String ansB = request.getParameter("ans_b");
+        String ansC = request.getParameter("ans_c");
+        String ansD = request.getParameter("ans_d");
+        String ans = request.getParameter("ans");
+        int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
+        int quesId = Integer.valueOf(request.getParameter("ques_id"));
+
+    }
+
+    private void deleteQues(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int quesId = Integer.valueOf(request.getParameter("ques_id"));
+        int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
+        quesDbUtil.deleteQuesById(quesId, quesCate);
     }
 
     private void getQuesList(HttpServletRequest request, HttpServletResponse response) throws Exception {
