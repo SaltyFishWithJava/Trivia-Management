@@ -66,7 +66,7 @@
                 <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了<span style="font-weight: bold;">
                     <%
                         List<Game> result = (List<Game>) request.getAttribute("game_list");
-                        if(result == null) pageContext.forward("/GameController?command=ADMIN_GAME");
+                        if(result == null) pageContext.forward("GameController?command=ADMIN_GAME");
                         out.print(result.size());
                     %></span> 条记录</p>
                 <div class="col-xs-12">
