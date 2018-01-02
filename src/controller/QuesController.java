@@ -98,7 +98,11 @@ public class QuesController extends HttpServlet {
         String ansD = request.getParameter("ans_d");
         String ans = request.getParameter("ans");
         int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
-        quesDbUtil.addQues(quesText, ansA, ansB, ansC, ansD, ans, quesCate);
+        int quesId = quesDbUtil.addQues(quesText, ansA, ansB, ansC, ansD, ans, quesCate);
+        Ques ret = quesDbUtil.getQues(quesId, quesCate);
+        request.setAttribute("ques", ret);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("quesDetail.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void updateQues(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -110,7 +114,11 @@ public class QuesController extends HttpServlet {
         String ans = request.getParameter("ans");
         int quesCate = Integer.valueOf(request.getParameter("ques_cate"));
         int quesId = Integer.valueOf(request.getParameter("ques_id"));
-
+        quesDbUtil.updateQuesById(quesId, quesText, ansA, ansB, ansC, ansD, ans, quesCate);
+        Ques ret = quesDbUtil.getQues(quesId, quesCate);
+        request.setAttribute("ques", ret);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("quesDetail.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void deleteQues(HttpServletRequest request, HttpServletResponse response) throws Exception {

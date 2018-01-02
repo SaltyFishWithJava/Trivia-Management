@@ -154,82 +154,100 @@ public class QuesDbUtil extends DbUtil {
         return result;
     }
 
-    public void addQues(String quesText, String ansA, String ansB, String ansC, String ansD, String ans, int quesCate) throws Exception {
+    public int addQues(String quesText, String ansA, String ansB, String ansC, String ansD, String ans, int quesCate) throws Exception {
+        int ret = 0;
         switch (quesCate) {
             case 1:
-                addQues1(quesText, ansA, ansB, ansC, ansD, ans);
+                ret = addQues1(quesText, ansA, ansB, ansC, ansD, ans);
                 break;
             case 2:
-                addQues2(quesText, ansA, ansB, ansC, ansD, ans);
+                ret = addQues2(quesText, ansA, ansB, ansC, ansD, ans);
                 break;
             case 3:
-                addQues3(quesText, ansA, ansB, ansC, ansD, ans);
+                ret = addQues3(quesText, ansA, ansB, ansC, ansD, ans);
                 break;
             case 4:
-                addQues4(quesText, ansA, ansB, ansC, ansD, ans);
+                ret = addQues4(quesText, ansA, ansB, ansC, ansD, ans);
                 break;
         }
+        return ret;
     }
 
-    private void addQues4(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+    private int addQues4(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("INSERT INTO Trivia.question_4 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 4",
+            String sql = String.format("INSERT INTO Trivia.questions_4 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 4)",
                     quesText, ansA, ansB, ansC, ansD, ans);
             System.out.println(sql);
             myStmt.execute(sql);
+            String getLastInsert = "SELECT LAST_INSERT_ID()";
+            myRs = myStmt.executeQuery(getLastInsert);
+            myRs.first();
+            return myRs.getInt(1);
         } finally {
             close(myConn, myStmt, myRs);
         }
     }
 
-    private void addQues3(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+    private int addQues3(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("INSERT INTO Trivia.question_3 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 3",
+            String sql = String.format("INSERT INTO Trivia.questions_3 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 3)",
                     quesText, ansA, ansB, ansC, ansD, ans);
             System.out.println(sql);
             myStmt.execute(sql);
+            String getLastInsert = "SELECT LAST_INSERT_ID()";
+            myRs = myStmt.executeQuery(getLastInsert);
+            myRs.first();
+            return myRs.getInt(1);
         } finally {
             close(myConn, myStmt, myRs);
         }
     }
 
-    private void addQues2(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+    private int addQues2(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("INSERT INTO Trivia.question_2 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 2",
+            String sql = String.format("INSERT INTO Trivia.questions_2 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 2)",
                     quesText, ansA, ansB, ansC, ansD, ans);
             System.out.println(sql);
             myStmt.execute(sql);
+            String getLastInsert = "SELECT LAST_INSERT_ID()";
+            myRs = myStmt.executeQuery(getLastInsert);
+            myRs.first();
+            return myRs.getInt(1);
         } finally {
             close(myConn, myStmt, myRs);
         }
     }
 
-    private void addQues1(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
+    private int addQues1(String quesText, String ansA, String ansB, String ansC, String ansD, String ans) throws Exception {
         Connection myConn = null;
         Statement myStmt = null;
         ResultSet myRs = null;
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("INSERT INTO Trivia.question_1 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 1",
+            String sql = String.format("INSERT INTO Trivia.questions_1 (description, A, B, C, D, answer, cate) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 1)",
                     quesText, ansA, ansB, ansC, ansD, ans);
             System.out.println(sql);
             myStmt.execute(sql);
+            String getLastInsert = "SELECT LAST_INSERT_ID()";
+            myRs = myStmt.executeQuery(getLastInsert);
+            myRs.first();
+            return myRs.getInt(1);
         } finally {
             close(myConn, myStmt, myRs);
         }
@@ -259,7 +277,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("UPDATE Trivia.question_4 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+            String sql = String.format("UPDATE Trivia.questions_4 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', answer = '%s' WHERE id = %d",
                     quesText, ansA, ansB, ansC, ansD, ans, quesId);
             System.out.println(sql);
             myStmt.execute(sql);
@@ -275,7 +293,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("UPDATE Trivia.question_3 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+            String sql = String.format("UPDATE Trivia.questions_3 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', answer = '%s' WHERE id = %d",
                     quesText, ansA, ansB, ansC, ansD, ans, quesId);
             System.out.println(sql);
             myStmt.execute(sql);
@@ -291,7 +309,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("UPDATE Trivia.question_2 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+            String sql = String.format("UPDATE Trivia.questions_2 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', answer = '%s' WHERE id = %d",
                     quesText, ansA, ansB, ansC, ansD, ans, quesId);
             System.out.println(sql);
             myStmt.execute(sql);
@@ -307,7 +325,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = String.format("UPDATE Trivia.question_1 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', ans = '%s' WHERE id = %d",
+            String sql = String.format("UPDATE Trivia.questions_1 SET description = '%s', A = '%s', B = '%s', C = '%s', D = '%s', answer = '%s' WHERE id = %d",
                     quesText, ansA, ansB, ansC, ansD, ans, quesId);
             System.out.println(sql);
             myStmt.execute(sql);
@@ -419,7 +437,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = "DELETE * questions_4 WHERE ID = " + quesId;
+            String sql = "SELECT * FROM Trivia.questions_4 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
             myRs.first();
@@ -444,7 +462,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = "DELETE * questions_3 WHERE ID = " + quesId;
+            String sql = "SELECT * FROM Trivia.questions_3 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
             myRs.first();
@@ -469,7 +487,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = "DELETE * questions_2 WHERE ID = " + quesId;
+            String sql = "SELECT * FROM Trivia.questions_2 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
             myRs.first();
@@ -494,7 +512,7 @@ public class QuesDbUtil extends DbUtil {
         try {
             myConn = dataSource.getConnection();
             myStmt = myConn.createStatement();
-            String sql = "DELETE * questions_1 WHERE ID = " + quesId;
+            String sql = "SELECT * FROM Trivia.questions_1 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
             myRs.first();

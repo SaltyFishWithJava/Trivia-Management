@@ -61,13 +61,16 @@
                                     <button type="submit" class="btn btn-primary btn-lg"><i
                                             class="fa fa-search" aria-hidden="true"></i>搜索
                                     </button>
-                                    <a href="quesDetail.jsp">
-                                        <button type="" class="btn btn-primary btn-lg"><i class="fa fa-plus"
-                                                aria-hidden="true"></i></i>添加
-                                        </button>
-                                    </a>
+                                    <button type="button" onclick="jump()" class="btn btn-primary btn-lg"><i class="fa fa-plus"
+                                                                                                             aria-hidden="true"></i>添加
+                                    </button>
                                 </div>
                             </form>
+                            <script>
+                                function jump() {
+                                    window.location.href = "quesDetail.jsp";
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -140,7 +143,7 @@
                                 %></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary" name="editUser"
+                                        <button type="button" class="btn btn-primary" name="editQues"
                                                 ques_id="<%=it.getQuesId()%>" ques_cate="<%=it.getQuesCate()%>">修改
                                         </button>
                                         <button type="button" class="btn btn-primary" name="deleteQues"
@@ -180,6 +183,14 @@
             });
         }
     );
+
+    $("button[name='editQues']").click(
+        function () {
+            var quesId = $(this).attr("ques_id");
+            var quesCate = $(this).attr("ques_cate");
+            window.location.href = "QuesController?command=GET_QUES&ques_id="+quesId+"&ques_cate="+quesCate;
+        }
+    )
 
 </script>
 </html>
