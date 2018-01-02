@@ -27,6 +27,7 @@
     </header>
 
 
+
     <!-- DASHBOARD ORDERS SECTION -->
     <section class="clearfix bg-dark dashboardOrders">
         <div class="container">
@@ -72,6 +73,7 @@
                 <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了<span style="font-weight: bold;">
                     <%
                         List<User> result = (List<User>) request.getAttribute("user_list");
+                        if(result == null) pageContext.forward("/UserController?command=ADMIN_USER");
                         out.print(result.size());
                     %></span> 条记录</p>
                 <div class="col-xs-12">

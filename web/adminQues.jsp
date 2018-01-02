@@ -79,6 +79,7 @@
                 <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了<span style="font-weight: bold;">
                     <%
                         List<Ques> result = (List<Ques>) request.getAttribute("ques_list");
+                        if(result == null) pageContext.forward("/QuesController?command=ADMIN_QUES");
                         out.print(result.size());
                     %></span> 条记录</p>
                 <div class="col-xs-12">
