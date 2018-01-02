@@ -54,10 +54,10 @@ public class UserController extends HttpServlet {
                 case "ADMIN_USER":
                     adminUser(request, response);
                     break;
-                case "MODIFY_USER":
+                case "ACTIVATE_USER":
                     activateUser(request, response);
                     break;
-                case "DELETE_USER":
+                case "SUSPEND_USER":
                     suspendUser(request, response);
                     break;
                 case "ADMIN_USER_UPDATE":
