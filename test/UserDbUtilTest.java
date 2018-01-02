@@ -62,15 +62,6 @@ public class UserDbUtilTest {
     }
 
     /**
-     * Method: updateUserByName(String userName, String userPsw)
-     */
-    @Test
-    public void testUpdateUserByName() throws Exception {
-//TODO: Test goes here...
-
-    }
-
-    /**
      * Method: suspendUserByName(String userName)
      */
     @Test

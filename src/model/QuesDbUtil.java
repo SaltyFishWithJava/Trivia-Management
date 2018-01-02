@@ -440,7 +440,7 @@ public class QuesDbUtil extends DbUtil {
             String sql = "SELECT * FROM Trivia.questions_4 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
-            myRs.first();
+            if(!myRs.first()) return null;
             Ques it = new Ques().setAns(myRs.getString("answer"))
                     .setChoiceA(myRs.getString("A"))
                     .setChoiceB(myRs.getString("B"))
@@ -465,7 +465,7 @@ public class QuesDbUtil extends DbUtil {
             String sql = "SELECT * FROM Trivia.questions_3 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
-            myRs.first();
+            if(!myRs.first()) return null;
             Ques it = new Ques().setAns(myRs.getString("answer"))
                     .setChoiceA(myRs.getString("A"))
                     .setChoiceB(myRs.getString("B"))
@@ -490,7 +490,7 @@ public class QuesDbUtil extends DbUtil {
             String sql = "SELECT * FROM Trivia.questions_2 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
-            myRs.first();
+            if(!myRs.first()) return null;
             Ques it = new Ques().setAns(myRs.getString("answer"))
                     .setChoiceA(myRs.getString("A"))
                     .setChoiceB(myRs.getString("B"))
@@ -515,7 +515,7 @@ public class QuesDbUtil extends DbUtil {
             String sql = "SELECT * FROM Trivia.questions_1 WHERE ID = " + quesId;
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);
-            myRs.first();
+            if(!myRs.first()) return null;
             Ques it = new Ques().setAns(myRs.getString("answer"))
                     .setChoiceA(myRs.getString("A"))
                     .setChoiceB(myRs.getString("B"))
