@@ -27,15 +27,15 @@ public class GameDbUtil extends DbUtil {
 
             String sql = "select * from Trivia.Games WHERE ";
             if(playerName != null && playerName != ""){
-                sql = sql + "  Player1 = \"" +playerName + "\"" +  " or Player2 = \"" +playerName + "\""
-                        + " or Player3 = \"" +playerName + "\"" + " or Player4 = \"" +playerName + "\""
+                sql = sql + "(Player1 = \"" +playerName + "\"" +  " or Player2 = \"" +playerName + "\""
+                        + " or Player3 = \"" +playerName + "\"" + " or Player4 = \"" +playerName + "\")"
                         + " AND ";
             }
             if(searchId){
-                sql = sql + " ID = " + id;
+                sql = sql + "ID = " + id;
             }
             else{
-                sql = sql + " ID IS NOT NULL ";
+                sql = sql + "ID IS NOT NULL ";
             }
             System.out.println(sql);
             myRs = myStmt.executeQuery(sql);

@@ -121,4 +121,11 @@ public class GameDbUtilTest {
         assertEquals(0, ret.size());
     }
 
+    @Test
+    public void testGetGameListbyAdmin_with_tt1_and_2() throws Exception {
+//TODO: Test goes here...
+        List<Game> ret = gameDbUtil.getGameListbyAdmin("tt1", 2, true);
+        assertEquals(1, ret.size());
+    }
+
 }
