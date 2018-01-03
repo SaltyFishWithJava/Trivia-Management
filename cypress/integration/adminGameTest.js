@@ -25,8 +25,8 @@ describe('admin game test', function () {
             cy.get('#gameId').type(GAME_ID)
             cy.get('#playerName').type(GAME_PLAYER)
             cy.get(':reset').click()
-            cy.get('#gameId').should('have.value','')
-            cy.get('#playerName').should('have.value','')
+            cy.get('#gameId').should('have.value', '')
+            cy.get('#playerName').should('have.value', '')
         });
 
         it('should search input empty', function () {

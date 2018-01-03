@@ -126,38 +126,38 @@ describe('admin question tset', function () {
             cy.get('#ordersTable td').first().should('contain', MDF_QUES_CONTENT)
         });
 
-        it('should allow me mdf question back', function () {
-            cy.get('#quesText').type(MDF_QUES_CONTENT)
-            cy.get('#quesSearchBtn').click()
-            cy.get('#ordersTable button').first().click()
-            //跳转至修改题目页面
-            cy.get('#questionContent').clear()
-            cy.get('#questionContent').type(QUES_CONTENT)
-            cy.get('.btn-submit').click()
-        });
-
-        it('should mdf successfully', function () {
-            cy.get('#quesText').type(QUES_CONTENT)
-            cy.get('#quesSearchBtn').click()
-            cy.get('#quesResultNum').should('have.text', '1')
-            cy.get('#ordersTable td').first().should('contain', QUES_CONTENT)
-        });
+        // it('should allow me mdf question back', function () {
+        //     cy.get('#quesText').type(MDF_QUES_CONTENT)
+        //     cy.get('#quesSearchBtn').click()
+        //     cy.get('#ordersTable button').first().click()
+        //     //跳转至修改题目页面
+        //     cy.get('#questionContent').clear()
+        //     cy.get('#questionContent').type(QUES_CONTENT)
+        //     cy.get('.btn-submit').click()
+        // });
+        //
+        // it('should mdf successfully', function () {
+        //     cy.get('#quesText').type(QUES_CONTENT)
+        //     cy.get('#quesSearchBtn').click()
+        //     cy.get('#quesResultNum').should('have.text', '1')
+        //     cy.get('#ordersTable td').first().should('contain', QUES_CONTENT)
+        // });
     })
-    
-    context('delete question test',function () {
+
+    context('delete question test', function () {
         beforeEach(function () {
             cy.visit('http://localhost:8080/adminQues.jsp')
         })
 
         it('should allow me to delete question', function () {
-            cy.get('#quesText').type(QUES_CONTENT)
+            cy.get('#quesText').type(MDF_QUES_CONTENT)
             cy.get('#quesSearchBtn').click()
             cy.get('#ordersTable button').last().click()
             cy.get('#ordersTable td').first().should('not.exist')
         });
 
         it('should delete question successfully', function () {
-            cy.get('#quesText').type(QUES_CONTENT)
+            cy.get('#quesText').type(MDF_QUES_CONTENT)
             cy.get('#quesSearchBtn').click()
             cy.get('#ordersTable td').should('not.exist')
         });
