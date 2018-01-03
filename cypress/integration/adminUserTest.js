@@ -74,7 +74,9 @@ describe('admin user tset',function () {
             cy.get('#userName').type(SEARCH_USERNAME_EXIST)
             cy.get('#search').click()
             cy.get('#ordersTable tbody').first().find('button').first().click()
-            // var originPassword = cy.get('#modalUserPsw').val();  ????????????
+            // var originPassword = cy.get('#modalUserPsw').val();  //????????????
+            // var originPassword = Cypress.$('#modalUserPsw').get(0)
+            // console.log(originPassword)
             cy.get('#modalUserPsw').clear()
             cy.get('#modalUserPsw').type(MDF_PASSWORD)
             cy.get('#modalReset').click()

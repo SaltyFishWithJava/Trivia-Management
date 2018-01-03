@@ -58,10 +58,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-6 col-xs-12" style="padding-top: 2.3%;">
-                                    <button type="submit" class="btn btn-primary btn-lg"><i
+                                    <button id="quesSearchBtn" type="submit" class="btn btn-primary btn-lg"><i
                                             class="fa fa-search" aria-hidden="true"></i>搜索
                                     </button>
-                                    <button type="button" onclick="jump()" class="btn btn-primary btn-lg"><i class="fa fa-plus"
+                                    <button id="addQuesBtn" type="button" onclick="jump()" class="btn btn-primary btn-lg"><i class="fa fa-plus"
                                                                                                              aria-hidden="true"></i>添加
                                     </button>
                                 </div>
@@ -76,8 +76,7 @@
                 </div>
 
 
-                <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了<span style="font-weight: bold;">
-                    <%
+                <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了<span id="quesResultNum" style="font-weight: bold;"><%
                         List<Ques> result = (List<Ques>) request.getAttribute("ques_list");
                         if(result == null) pageContext.forward("/QuesController?command=ADMIN_QUES");
                         out.print(result.size());
@@ -124,9 +123,9 @@
                                     out.print(it.getChoiceD());
                                 %>
                                 </td>
-                                <td><%=it.getAns()%>
+                                <td class="ques-ans"><%=it.getAns()%>
                                 </td>
-                                <td><%
+                                <td class="ques-type"><%
                                     switch (it.getQuesCate()) {
                                         case 1:
                                             out.print("娱乐知识类");
