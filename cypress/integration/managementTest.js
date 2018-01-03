@@ -143,7 +143,7 @@ describe('admin question tset', function () {
         it('should delete question successfully', function () {
             cy.get('#quesText').type(MDF_QUES_CONTENT)
             cy.get('#quesSearchBtn').click()
-            cy.get('#ordersTable td').should('not.exist')
+            cy.get('#quesResultNum').should('have.text', '0')
         });
     })
 
