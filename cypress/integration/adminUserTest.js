@@ -23,6 +23,7 @@ describe('admin user tset',function () {
         it('should reset correctly', function () {
             cy.get('#userName').type(SEARCH_USERNAME_EXIST)
             cy.get('#reset').click()
+            cy.get('#userName').should('have.value','')
         });
     })
 

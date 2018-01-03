@@ -50,10 +50,10 @@
                                            name="player_name">
                                 </div>
                                 <div class="form-group col-md-4 col-sm-6 col-xs-12" style="padding-top: 2.3%;">
-                                    <button type="submit" class="btn btn-primary btn-lg"><i
+                                    <button id="gameSearchBtn" type="submit" class="btn btn-primary btn-lg"><i
                                             class="fa fa-search" aria-hidden="true"></i>搜索
                                     </button>
-                                    <button type="reset" class="btn btn-primary btn-lg"><i
+                                    <button id="resetBtn" type="reset" class="btn btn-primary btn-lg"><i
                                             class="fa fa-circle-o" aria-hidden="true"></i>清空
                                     </button>
                                 </div>
@@ -63,8 +63,8 @@
                 </div>
 
 
-                <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了<span style="font-weight: bold;">
-                    <%
+                <p style="margin-left: 2%; height: 0px; padding-top: 30px">共搜索到了
+                    <span id="gameResNum" style="font-weight: bold;"><%
                         List<Game> result = (List<Game>) request.getAttribute("game_list");
                         if(result == null) pageContext.forward("GameController?command=ADMIN_GAME");
                         out.print(result.size());
