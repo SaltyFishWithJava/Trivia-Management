@@ -20,4 +20,6 @@
     <!-- CUSTOM CSS -->
     <link href="css/style.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="/img/logo.png">
+
 </head>

@@ -60,7 +60,7 @@ describe('admin game tset', function () {
             cy.get('#gameId').type(GAME_ID)
             cy.get('#playerName').type(GAME_PLAYER)
             cy.get('#gameSearchBtn').click()
-            cy.get('#gameResNum').should('have.text', '1')
+            cy.get('#gameResNum').should('have.text', '2')
             cy.get('#ordersTable td').first().should('contain', GAME_ID)
             cy.get('#ordersTable td').should('contain', GAME_PLAYER)
         });
