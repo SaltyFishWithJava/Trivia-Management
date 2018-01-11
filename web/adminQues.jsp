@@ -107,9 +107,9 @@
                             <tr id="result<%=it.getQuesId()%>">
                                 <td><%
                                     out.print("题目: ");
-                                    if (it.getQuesText().length() > 30) {
-                                        out.print(it.getQuesText().substring(0, 29) + "</br>");
-                                        out.print(it.getQuesText().substring(30, it.getQuesText().length() - 1));
+                                    if (it.getQuesText().length() > 40) {
+                                        out.print(it.getQuesText().substring(0, 40) + "</br>");
+                                        out.print(it.getQuesText().substring(40, it.getQuesText().length() - 1));
                                     } else {
                                         out.print(it.getQuesText());
                                     }

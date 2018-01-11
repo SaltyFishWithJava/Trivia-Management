@@ -117,24 +117,24 @@ public class UserDbUtilTest {
     @Test
     public void testGetUserListbyAdmin_with_t1_and_null() throws Exception {
 //TODO: Test goes here...
-        List<User> ret = userDbUtil.getUserListbyAdmin("t1", null);
+        List<User> ret = userDbUtil.getUserListbyAdmin("单元测试t1", null);
         assertEquals(ret.size(), 1);
-        assertEquals(ret.get(0).getUserName(), "t1");
+        assertEquals(ret.get(0).getUserName(), "单元测试t1");
     }
 
     @Test
     public void testGetUserListbyAdmin_with_t1_and_1() throws Exception {
 //TODO: Test goes here...
-        List<User> ret = userDbUtil.getUserListbyAdmin("t1", "1");
+        List<User> ret = userDbUtil.getUserListbyAdmin("单元测试t1", "1");
         assertEquals(ret.size(), 0);
     }
 
     @Test
     public void testGetUserListbyAdmin_with_t1_and_0() throws Exception {
 //TODO: Test goes here...
-        List<User> ret = userDbUtil.getUserListbyAdmin("t1", "0");
+        List<User> ret = userDbUtil.getUserListbyAdmin("单元测试t1", "0");
         assertEquals(ret.size(), 1);
-        assertEquals(ret.get(0).getUserName(), "t1");
+        assertEquals(ret.get(0).getUserName(), "单元测试t1");
     }
 
     @Test
@@ -146,8 +146,8 @@ public class UserDbUtilTest {
 
     @Test
     public void testUpdateUserByName_with_t1_and_10152160137() throws Exception {
-        userDbUtil.updateUserByName("t1", "10152160137");
-        assertEquals(userDbUtil.getUserByName("t1").getUserPsw(), "10152160137");
+        userDbUtil.updateUserByName("单元测试t1", "10152160137");
+        assertEquals(userDbUtil.getUserByName("单元测试t1").getUserPsw(), "10152160137");
     }
 
     @Test
